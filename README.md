@@ -1,5 +1,5 @@
 # Ex.05 Design a Website for Server Side Processing
-## Date:27.11.2024
+## Date:30.11.2024
 
 ## AIM:
  To design a website to calculate the power of a lamp filament in an incandescent bulb in the server side. 
@@ -64,48 +64,39 @@ views.py
 from django.shortcuts import render
 
 def EnergyCalc(request):
-    # Initialize context with default values
     context = {
         'power': "0", 
         'intensity': "0", 
         'resistance': "0"
     }
     
-    # Check if the form was submitted via POST method
     if request.method == 'POST':
         print("POST method is used")
         
-        # Retrieve intensity and resistance from the form submission
         intensity = request.POST.get('intensity', '0')
         resistance = request.POST.get('resistance', '0')
         
-        # Debugging output to terminal
         print('Request:', request)
         print('Intensity:', intensity)
         print('Resistance:', resistance)
         
         try:
-            # Convert intensity and resistance to integers
-            intensity = float(intensity)  # using float to allow decimal values
-            resistance = float(resistance)  # using float to allow decimal values
-
-            # Power calculation using the formula P = I^2 * R
+            intensity = float(intensity)  
+            resistance = float(resistance) 
             power = (intensity ** 2) * resistance
             
-            # Pass the results to the template via context
-            context['power'] = round(power, 2)  # rounding the result to 2 decimal places
+           
+            context['power'] = round(power, 2) 
             context['intensity'] = round(intensity, 2)
             context['resistance'] = round(resistance, 2)
 
-            # Debugging output
+            
             print(f'Calculated Power: {power}')
 
         except ValueError as e:
-            # Handle invalid inputs
+            
             print(f'Error in calculation: {e}')
             context['power'] = "Invalid input. Please enter valid numbers."
-
-    # Render the template with context data
     return render(request, 'mathapp/math.html', context)
 urls.py
 from django.contrib import admin
@@ -113,20 +104,19 @@ from django.urls import path
 from mathapp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  # Admin panel route
-    path('', views.EnergyCalc, name="EnergyCalc"),  # Home route for the calculator
+    path('admin/', admin.site.urls), 
+    path('', views.EnergyCalc, name="EnergyCalc"), 
 ]
 
 ```
 
-## SERVER SIDE PROCE!
-[alt text](<Screenshot (40).png>)SSING:
+## SERVER SIDE PROCESSING:
+![alt text](<Screenshot (40).png>)
 
 
 ## HOMEPAGE:
+![alt text](<Screenshot (41).png>)
 
 
 ## RESULT:
-![alt text](<Screenshot (41).png>)
-
 The program for performing server side processing is completed successfully.
